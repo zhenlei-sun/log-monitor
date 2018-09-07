@@ -1,0 +1,30 @@
+info:
+    build:
+        artifact: '@project.artifactId@'
+        description: '@project.description@'
+        name: '@project.name@'
+        version: '@project.version@'
+server:
+    port: 9026
+
+management:
+    security:
+        enabled: true
+endpoints:
+    shutdown:
+        enabled: false
+    prometheus:
+        sensitive: false
+    sensitive: true
+
+spring:
+    kafka:
+        topic: test
+        consumer:
+            group-id: default_group
+            bootstrap-servers: localhost:9092
+            enable-auto-commit: true
+            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            auto-commit-interval: 1000
+
