@@ -21,7 +21,7 @@ spring:
   profiles:
     active: ${fro_env:bnb}-${active:dev}
   kafka:
-    topic: test
+    topic: prometheus
     consumer:
       group-id: default_group
       bootstrap-servers: localhost:9092
