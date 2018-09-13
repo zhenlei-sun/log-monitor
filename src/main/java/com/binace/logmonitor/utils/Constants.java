@@ -5,15 +5,17 @@ import io.prometheus.client.Counter;
 import io.prometheus.client.Gauge;
 
 public class Constants {
-    public static final CounterWithSet REGISTER_USER_COUNTER = CounterWithSet.build()
-            .name("register_user_number")
-            .labelNames("users")
-            .help("total registered user numbers")
+    public static final String ACCOUNT_USER_COUNTER_LABEL_REGISTER = "register";
+    public static final String ACCOUNT_USER_COUNTER_LABEL_LOGIN = "login";
+    public static final CounterWithSet ACCOUNT_USER_COUNTER = CounterWithSet.build()
+            .name("account_user")
+            .labelNames(ACCOUNT_USER_COUNTER_LABEL_REGISTER, ACCOUNT_USER_COUNTER_LABEL_LOGIN)
+            .help("account user numbers")
             .register();
 
-    public static final Gauge USER_LOGIN_NUMBER = Gauge.build()
-            .name("user_login_number")
-            .help("the login user number")
+    public static final Gauge ACCOUNT_ONLINE_USER_GAUGE = Gauge.build()
+            .name("account_user_online")
+            .help("the online user number.")
             .register();
 
 }

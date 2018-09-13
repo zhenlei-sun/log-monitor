@@ -1,10 +1,9 @@
 package com.binace.logmonitor.service;
 
 import com.binace.logmonitor.utils.Constants;
-import io.prometheus.client.Counter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.tomcat.util.bcel.Const;
+import org.aspectj.apache.bcel.classfile.Constant;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -23,10 +22,10 @@ public class MonitorService {
     @KafkaListener(topics = "${spring.kafka.topic}")
     public void processMsg(ConsumerRecord record) {
         Optional optional = Optional.ofNullable(record);
-        if(optional.isPresent()){
+        if(optional.isPresent()) {
             String message = record.value().toString();
             if(message.contains("register_user_number")){
-                Constants.REGISTER_USER_COUNTER.labels("users").inc();
+                Constants.ACCOUNT_USER_COUNTER.labels(Constants.ACCOUNT_USER_COUNTER_LABEL_REGISTER).inc();
             }
             else if(message.contains("total_register_number")){
                 String msg = record.value().toString();
@@ -34,11 +33,14 @@ public class MonitorService {
                 Pattern pat = Pattern.compile(regEx);
                 Matcher mat = pat.matcher(msg);
                 if(mat.find()){
-                    Constants.REGISTER_USER_COUNTER.labels("users").set(Double.valueOf(mat.group(1)));
+                    Constants.ACCOUNT_USER_COUNTER.labels(Constants.ACCOUNT_USER_COUNTER_LABEL_REGISTER).set(Double.valueOf(mat.group(1)));
                 }
             }
-            else{
-
+            else if (message.contains("用户登陆成功")){
+                Constants.ACCOUNT_ONLINE_USER_GAUGE.inc();
+            }
+            else if (message.contains("用户下线")){
+                Constants.ACCOUNT_ONLINE_USER_GAUGE.dec();
             }
         }
         else {
