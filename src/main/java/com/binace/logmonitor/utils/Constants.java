@@ -9,7 +9,6 @@ public class Constants {
     public static final String ACCOUNT_USER_COUNTER_LABEL_LOGIN = "login";
     public static final CounterWithSet ACCOUNT_USER_COUNTER = CounterWithSet.build()
             .name("account_user")
-            .labelNames(ACCOUNT_USER_COUNTER_LABEL_REGISTER, ACCOUNT_USER_COUNTER_LABEL_LOGIN)
             .help("account user numbers")
             .register();
 

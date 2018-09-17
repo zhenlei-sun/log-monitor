@@ -19,7 +19,7 @@ endpoints:
 
 spring:
     kafka:
-        topic: prometheus
+        topic: logMonitor
         consumer:
             group-id: default_group
             bootstrap-servers: localhost:9092

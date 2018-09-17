@@ -19,10 +19,10 @@ endpoints:
 
 spring:
     kafka:
-        topic: prometheus
+        topic: logMonitor
         consumer:
             group-id: default_group
-            bootstrap-servers: localhost:9092
+            bootstrap-servers: 172.18.3.60:9092,172.18.3.61:9092,172.18.3.62:9092
             enable-auto-commit: true
             key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
             value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
